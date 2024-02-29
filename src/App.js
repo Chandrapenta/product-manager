@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import './App.css';
 
 import initialProducts from './components/productsData';
@@ -41,56 +42,56 @@ const App = () => {
   };
 
   return (
-    <>
-      <h1>Product List</h1>
-      <div>
-        <label>Filter by Category:</label>
-        <select value={filterCategory} onChange={handleCategoryChange}>
-          <option value="">All</option>
-          <option value="Vegetables">Vegetables</option>
-          <option value="Meat">Meat</option>
-        </select>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Can Expire</th>
-            <th>Expiry Date</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Special</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredProducts.map(product => (
-            <React.Fragment key={product.id}>
-              <tr className={product.isSpecial ? 'special-item' : ''}>
-                <td>{product.description}</td>
-                <td>{product.canExpire ? 'Yes' : 'No'}</td>
-                <td>{product.canExpire ? product.expiryDate : ''}</td>
-                <td>{product.category}</td>
-                <td>${product.price}</td>
-                <td><input type='checkbox' checked={product.isSpecial} disabled></input></td>
-                <td>
-                  <button onClick={() => handleDelete(product.id)}>Delete</button>
-                  <button onClick={() => handleEditClick(product.id)}>Edit</button>
-                </td>
-              </tr>
-              {editingProductId === product.id && (
-                <tr>
-                  <td colSpan="7">
-                    <ProductEditForm product={product} onEdit={handleEdit} onCancel={() => setEditingProductId(null)} />
+    <div className="container">
+        <h1>Product List</h1>
+        <div className="mb-3">
+          <label htmlFor="category" className="form-label">Filter by Category:</label>
+          <select id="category" className="form-select" value={filterCategory} onChange={handleCategoryChange}>
+            <option value="">All</option>
+            <option value="Vegetables">Vegetables</option>
+            <option value="Meat">Meat</option>
+          </select>
+        </div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Can Expire</th>
+              <th>Expiry Date</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Special</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredProducts.map(product => (
+              <React.Fragment key={product.id}>
+                <tr className={product.isSpecial ? 'special-item' : ''}>
+                  <td>{product.description}</td>
+                  <td>{product.canExpire ? 'Yes' : 'No'}</td>
+                  <td>{product.canExpire ? product.expiryDate : ''}</td>
+                  <td>{product.category}</td>
+                  <td>${product.price}</td>
+                  <td><input type='checkbox' checked={product.isSpecial} disabled></input></td>
+                  <td>
+                    <button className="btn btn-danger" onClick={() => handleDelete(product.id)}>Delete</button>
+                    <button className="btn btn-primary" onClick={() => handleEditClick(product.id)}>Edit</button>
                   </td>
                 </tr>
-              )}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
-      <ProductForm onCreate={handleCreate} />
-    </>
+                {editingProductId === product.id && (
+                  <tr>
+                    <td colSpan="7">
+                      <ProductEditForm product={product} onEdit={handleEdit} onCancel={() => setEditingProductId(null)} />
+                    </td>
+                  </tr>
+                )}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+        <ProductForm onCreate={handleCreate} />
+      </div>
   );
 };
 

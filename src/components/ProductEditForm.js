@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 const ProductEditForm = ({ product, onEdit, onCancel }) => {
     const [editedDescription, setEditedDescription] = useState(product.description);
@@ -68,43 +69,53 @@ const ProductEditForm = ({ product, onEdit, onCancel }) => {
         <form onSubmit={handleSubmit}>
             {/* <h2>Edit {editedDescription}</h2> */}
             <h2>Edit Product</h2>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Description:</td>
-                        <td><input type="text" value={editedDescription} onChange={(e) => setEditedDescription(e.target.value)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Can Expire:</td>
-                        <td><input type="checkbox" checked={editedCanExpire} onChange={(e) => setEditedCanExpire(e.target.checked)} /></td>
-                    </tr>
-                    {editedCanExpire && (
-                        <tr>
-                            <td>Expiry Date:</td>
-                            <td><input type="date" value={editedExpiryDate} min={currentDate} onChange={(e) => setEditedExpiryDate(e.target.value)} /></td>
-                        </tr>
-                    )}
-                    <tr>
-                        <td>Category:</td>
-                        <td><input type="text" value={editedCategory} onChange={(e) => setEditedCategory(e.target.value)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Price:</td>
-                        <td><input type="number" value={editedPrice} onChange={(e) => setEditedPrice(e.target.value)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Special:</td>
-                        <td><input type="checkbox" checked={editedIsSpecial} onChange={(e) => setEditedIsSpecial(e.target.checked)} /></td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2">
-                            {showError && <div className="error-message">{errorMessage}</div>}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button type="submit">Save</button>
-            <button type="button" onClick={onCancel}>Cancel</button>
+            <div className="container">
+                <div className="row mb-3">
+                    <div className="col">
+                        <label className="form-label">Description:</label>
+                        <input type="text" className="form-control" value={editedDescription} onChange={(e) => setEditedDescription(e.target.value)} />
+                    </div>
+                    <div className="col">
+                        <label className="form-label">Can Expire:</label>
+                        <input type="checkbox" className="form-check-input" checked={editedCanExpire} onChange={(e) => setEditedCanExpire(e.target.checked)} />
+                    </div>
+                </div>
+                {editedCanExpire && (
+                    <div className="row mb-3">
+                        <div className="col">
+                            <label className="form-label">Expiry Date:</label>
+                            <input type="date" className="form-control" value={editedExpiryDate} min={currentDate} onChange={(e) => setEditedExpiryDate(e.target.value)} />
+                        </div>
+                    </div>
+                )}
+                <div className="row mb-3">
+                    <div className="col">
+                        <label className="form-label">Category:</label>
+                        <input type="text" className="form-control" value={editedCategory} onChange={(e) => setEditedCategory(e.target.value)} />
+                    </div>
+                    <div className="col">
+                        <label className="form-label">Price:</label>
+                        <input type="number" className="form-control" value={editedPrice} onChange={(e) => setEditedPrice(e.target.value)} />
+                    </div>
+                </div>
+                <div className="row mb-3">
+                    <div className="col">
+                        <label className="form-label">Special:</label>
+                        <input type="checkbox" className="form-check-input" checked={editedIsSpecial} onChange={(e) => setEditedIsSpecial(e.target.checked)} />
+                    </div>
+                </div>
+                <div className="row mb-3">
+                    <div className="col">
+                        {showError && <div className="text-danger">{errorMessage}</div>}
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <button type="submit" className="btn btn-primary">Save</button>
+                        <button type="button" className="btn btn-secondary" onClick={onCancel}>Cancel</button>
+                    </div>
+                </div>
+            </div>
         </form>
     );
 };
