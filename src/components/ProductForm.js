@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ProductForm.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 const ProductForm = ({ onCreate }) => {
     const [description, setDescription] = useState('');
@@ -77,42 +77,52 @@ const ProductForm = ({ onCreate }) => {
     return (
         <form onSubmit={handleSubmit}>
             <h2>Add New Product</h2>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Description:</td>
-                        <td><input type="text" value={description} onChange={(e) => setDescription(e.target.value)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Can Expire:</td>
-                        <td><input type="checkbox" checked={canExpire} onChange={(e) => setCanExpire(e.target.checked)} /></td>
-                    </tr>
-                    {canExpire && (
-                        <tr>
-                            <td>Expiry Date:</td>
-                            <td><input type="date" value={expiryDate} min={currentDate} onChange={(e) => setExpiryDate(e.target.value)} /></td>
-                        </tr>
-                    )}
-                    <tr>
-                        <td>Category:</td>
-                        <td><input type="text" value={category} onChange={(e) => setCategory(e.target.value)} /></td>
-                    </tr>
-                    <tr>
-                        <td>Price:</td>
-                        <td><input type="number" value={price} onChange={(e) => setPrice(e.target.value)} /></td>
-                    </tr>
-                    <tr >
-                        <td>Special:</td>
-                        <td><input type="checkbox" checked={isSpecial} onChange={(e) => setIsSpecial(e.target.checked)} /></td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2">
-                            {showError && <div className="error-message">{errorMessage}</div>}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button type="submit">Add Product</button>
+            <div className="container">
+                <div className="row mb-3">
+                    <div className="col">
+                        <label className="form-label">Description:</label>
+                        <input type="text" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} />
+                    </div>
+                    <div className="col">
+                        <label className="form-label">Can Expire:</label>
+                        <input type="checkbox" className="form-check-input" checked={canExpire} onChange={(e) => setCanExpire(e.target.checked)} />
+                    </div>
+                </div>
+                {canExpire && (
+                    <div className="row mb-3">
+                        <div className="col">
+                            <label className="form-label">Expiry Date:</label>
+                            <input type="date" className="form-control" value={expiryDate} min={currentDate} onChange={(e) => setExpiryDate(e.target.value)} />
+                        </div>
+                    </div>
+                )}
+                <div className="row mb-3">
+                    <div className="col">
+                        <label className="form-label">Category:</label>
+                        <input type="text" className="form-control" value={category} onChange={(e) => setCategory(e.target.value)} />
+                    </div>
+                    <div className="col">
+                        <label className="form-label">Price:</label>
+                        <input type="number" className="form-control" value={price} onChange={(e) => setPrice(e.target.value)} />
+                    </div>
+                </div>
+                <div className="row mb-3">
+                    <div className="col">
+                        <label className="form-label">Special:</label>
+                        <input type="checkbox" className="form-check-input" checked={isSpecial} onChange={(e) => setIsSpecial(e.target.checked)} />
+                    </div>
+                </div>
+                <div className="row mb-3">
+                    <div className="col">
+                        {showError && <div className="text-danger">{errorMessage}</div>}
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <button type="submit" className="btn btn-primary">Add Product</button>
+                    </div>
+                </div>
+            </div>
         </form>
     );
 };
